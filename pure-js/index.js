@@ -57,7 +57,7 @@ const testSegmentThis = function() {
   console.log(x===y);//true
 }
 
-const testSegmentPrototypes = function() {
+const testSegmentObjects = function() {
   const human = {
     sleeps: true,
     eats: true,
@@ -72,16 +72,118 @@ const testSegmentPrototypes = function() {
     sleeping: true,
     __proto__: human
   }
-  
-  for(let prop in rabbit) {
-  }
 
+  console.log(bob.hasOwnProperty('job'))//f
   bob.about();
   bob.job = 'criminal';
+  console.log(bob.hasOwnProperty('job'))//t
   bob.about();
+  console.log('talks? - ' + bob.talks);
+  human.talks = true;
+  console.log('talks? - ' + bob.talks);
+
+  function animal() {
+    this.runs = true;
+  }
+
+  animal.prototype.talks = true;
+
+  const snake = new animal();
+
+  console.log(snake);
+  console.log(snake.talks);
+
+  function panda() {
+    animal.call(this);
+    this.lazy = true;
+  }
+
+  const panda1 = new panda();
+
+
+  console.log(panda1);//class inheritance
+  console.log('talks? - ' + panda1.talks);
+  console.log('talks? - ' + panda1.talks);
+
+  //es2015 classes
+  class worker {
+    constructor(name) {
+      this.name = name;
+    }
+  }
+
+  console.log(new worker('joe'));
+
+  class scientist extends worker {
+    research() {
+      console.log('researching');
+    }
+  }
+
+  const joe = new scientist('joe');
+
+  joe.research();
+
+  console.log(joe);
+
+
+  function fakeConstructor() {
+    this.name = 'test';
+  }
+
+  console.log(new fakeConstructor());
 
   //method and variable search goes up in prototype chain until it finds first match. this matches caller
 }
 
+const testSegmentGetSet = function() {
+  const obj = {
+    _name: 'a',
+    get name() { return this._name; },
+    set name(_name) { this._name = _name; }
+  }
+
+  console.log(obj.name);
+  obj.name = 'b';
+  console.log(obj.name);
+}
+
+const testSegmentAsync = function() {
+  //promise
+  fetch('https://pokeapi.co/api/v2/pokemon?limit=100&offset=200')
+    .then(result => result.json())
+    .then(data => console.log(data));
+  //async await
+  async function get() {
+    const res = await fetch('https://pokeapi.co/api/v2/pokemon?limit=100&offset=200');
+    const json = await res.json();
+    return json;
+    // async returns 
+  }
+  get()
+    .then(res => console.log(res))
+  //get().then(zzz => console.log(zzz)); //name doesn't matter
+  async function getFail() {
+    let tryCount = 0;
+    while (tryCount < 5) {
+      try {
+        const res = await fetch('asdgwaerasdfwersdfwer');
+        tryCount = 5;
+      } catch {;
+        tryCount++;
+      }
+    }
+    if (tryCount >= 5) throw new Error("Couldn't retrieve data");
+    const json = await res.json();
+    return json;
+  };
+
+  getFail()
+    .then(res => console.log(res))
+    .catch(err => console.log(err));
+}
+
 createAButton('Test Segment \'This\'', testSegmentThis);
-createAButton('Test Segment \'Prototypes\'', testSegmentPrototypes);
+createAButton('Test Segment \'Objects\'', testSegmentObjects);
+createAButton('Test Segment \'GetSet\'', testSegmentGetSet);
+createAButton('Test Segment \'Async\'', testSegmentAsync);
