@@ -1,0 +1,23 @@
+{
+  "name": "testing-repo",
+  "version": "1.0.0",
+  "author": "Maxim Shkitin",
+  "description": "Repository for testing",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon ./app/main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TestimonyGit/testing-repo.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TestimonyGit/testing-repo/issues"
+  },
+  "homepage": "https://github.com/TestimonyGit/testing-repo#readme",
+  "dependencies": {
+    "express": "4.17.1",
+    "vue": "2.6.11"
+  }
+}
