@@ -7,7 +7,7 @@ class Child extends React.Component {
       <input 
         className="child"
         value={this.props.value}
-        onChange={() => this.props.onChange()} 
+        onChange={event => this.props.onChange(event)} 
       >
       </input>
     )

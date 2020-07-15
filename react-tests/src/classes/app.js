@@ -19,19 +19,20 @@ class App extends React.Component {
     this.setState({...this.state, dataForChild: 'dataChanged'})
   }
 
-  changeInputData(value) {
-    console.log(value);
+  changeInputData(event) {
+    console.log(event);
     console.log('Changing input data');
-    this.setState({...this.state, inputValue: value})
+    this.setState({...this.state, inputValue: event.target.value})
   }
 
   render() {
     console.log('rendering App');
-    const customers = this.state.customers.map(customer => <Text>Hey {customer}!</Text>)
+    const customers = this.state.customers.map((customer, index) => <Text key={index}>Hey {customer}</Text>)
     return (
       <div className="app">
         <h1>Application with classes instead of hooks</h1>
         <h1>Data in a parent - {this.state.dataForChild}</h1>
+        <h1>{this.state.inputValue}</h1>
         {customers}
         <Child 
           value={this.state.dataForChild}
@@ -39,7 +40,7 @@ class App extends React.Component {
         ></Child>
         <Input 
           value={this.state.inputValue}
-          onChange={() => this.changeInputData()}
+          onChange={event => this.changeInputData(event)}
         ></Input>
       </div>
     )
