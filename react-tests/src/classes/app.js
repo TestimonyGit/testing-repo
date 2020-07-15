@@ -27,7 +27,7 @@ class App extends React.Component {
 
   render() {
     console.log('rendering App');
-    const customers = this.state.customers.map(customer => <Text text={customer}></Text>)
+    const customers = this.state.customers.map(customer => <Text>Hey {customer}!</Text>)
     return (
       <div className="app">
         <h1>Application with classes instead of hooks</h1>
