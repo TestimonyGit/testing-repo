@@ -4,12 +4,12 @@ class Child extends React.Component {
   render() {
     console.log('rendering Child');
     return (
-      <button 
-        className="child" 
-        onClick={() => this.props.onClick()} 
+      <input 
+        className="child"
+        value={this.props.value}
+        onChange={() => this.props.onChange()} 
       >
-        {this.props.value}
-      </button>
+      </input>
     )
   }
 }
